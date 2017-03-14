@@ -1,18 +1,12 @@
 // Runtime
 require ('babel-polyfill');
+require ('./util/log');
 
 // Dependencies
-const path = require ('path');
 const winston = require ('winston');
 
 // Local
-const config = require ('./config');
-
-// Get paths
-const LOG_PATH = path.join (__dirname, '..', 'service.log');
-
-// Configure log
-winston.add (winston.transports.File, { filename: LOG_PATH });
+const config = require ('./util/config');
 
 (async () =>
 {
