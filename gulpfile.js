@@ -1,6 +1,7 @@
 // Dependencies
 const gulp = require ('gulp');
 const babel = require ('gulp-babel');
+const clean = require('gulp-clean');
 const eslint = require ('gulp-eslint');
 const lab = require ('gulp-lab');
 
@@ -15,6 +16,11 @@ const LAB_CONFIG =
 	'--leaks';
 
 // Tasks
+gulp.task ('clean', () =>
+	gulp
+		.src ('dist', { read: false })
+		.pipe (clean ()));
+
 gulp.task ('lint', () =>
 	gulp
 		.src ('src/**/*.js')
@@ -22,7 +28,7 @@ gulp.task ('lint', () =>
 		.pipe (eslint.format ())
 		.pipe (eslint.failOnError()));
 
-gulp.task ('build', ['lint'], () =>
+gulp.task ('build', ['lint', 'clean'], () =>
 	gulp
 		.src ([
 			'src/**/*.js',
