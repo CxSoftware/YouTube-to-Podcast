@@ -1,5 +1,5 @@
-require ('babel-polyfill');
 // Runtime
+require ('babel-polyfill');
 
 // Dependencies
 const jsonfile = require ('jsonfile');
