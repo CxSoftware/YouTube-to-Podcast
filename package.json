@@ -21,7 +21,8 @@
     "gulp-lab": "^1.0.6",
     "jsonfile": "^2.4.0",
     "lab": "^11.2.1",
-    "winston": "^2.3.0"
+    "winston": "^2.3.0",
+    "winston-cloudwatch": "^1.11.3"
   },
   "devDependencies": {},
   "description": ""
