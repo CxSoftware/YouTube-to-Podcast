@@ -1,2 +1,28 @@
 {
+	"log":
+	{
+		"console":
+		{
+			"enabled": true,
+			"level": "info",
+			"timestamp": true
+		},
+		"local":
+		{
+			"enabled": false,
+			"level": "info",
+			"filename": "service.log"
+		},
+		"cloudwatch":
+		{
+			"enabled": false,
+			"level": "info",
+			"awsRegion": "us-west-1",
+			"awsAccessKeyId": "KEYID",
+			"awsSecretKey": "SECRET",
+			"logGroupName": "GROUP",
+			"logStreamName": "STREAM",
+			"jsonMessage": true
+		}
+	}
 }
