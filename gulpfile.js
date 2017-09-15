@@ -3,17 +3,11 @@ const gulp = require ('gulp');
 const babel = require ('gulp-babel');
 const clean = require('gulp-clean');
 const eslint = require ('gulp-eslint');
-const lab = require ('gulp-lab');
 
 // Constants
 const BABEL_CONFIG = {
 	presets: ['es2015', 'stage-3']
 };
-const LAB_CONFIG =
-	'--verbose ' +
-	'--sourcemaps ' +
-	'--colors ' +
-	'--leaks';
 
 // Tasks
 gulp.task ('clean', () =>
@@ -37,15 +31,4 @@ gulp.task ('build', ['lint', 'clean'], () =>
 		.pipe (babel (BABEL_CONFIG))
 		.pipe (gulp.dest ('dist')));
 
-gulp.task ('build-tests', ['build'], () =>
-	gulp
-		.src ('src/test/**/*.js')
-		.pipe (babel (BABEL_CONFIG))
-		.pipe (gulp.dest ('test')));
-
-gulp.task ('test', ['build-tests'], () =>
-	gulp
-		.src ('test')
-		.pipe (lab (LAB_CONFIG)));
-
-gulp.task ('default', ['test']);
+gulp.task ('default', ['build']);
