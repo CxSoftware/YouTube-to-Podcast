@@ -1,0 +1,87 @@
+{
+	"aws":
+	{
+		"baseUrl": "https://YOUR_PUBLIC_BUCKET_URL/",
+		"bucket": "BUCKET_NAME",
+		"s3":
+		{
+			"endpoint": "AWS_OR_DIGITAL_OCEAN_ENDPOINT",
+			"accessKeyId": "YOUR_ACCESS_KEY",
+			"secretAccessKey": "YOUR_SECRET_KEY"
+		}
+	},
+	"log":
+	{
+		"console":
+		{
+			"enabled": true,
+			"level": "debug",
+			"timestamp": true
+		},
+		"local":
+		{
+			"enabled": false,
+			"level": "info",
+			"filename": "service.log"
+		},
+		"cloudwatch":
+		{
+			"enabled": false,
+			"level": "info",
+			"logGroupName": "youtube-to-podcast",
+			"jsonMessage": true
+		}
+	},
+	"podcast":
+	{
+		"xml": "feed.xml",
+		"feed":
+		{
+			"title": "PODCAST TITLE",
+			"description": "PODCAST DESCRIPTION",
+			"site_url": "SITE URL",
+			"feed_url": "PUBLIC FEED XML",
+			"image_url": "LOGO URL",
+			"author": "PODCAST AUTHOR",
+			"language": "en",
+			"categories": [ "CATEGORY" ],
+			"ttl": "3600",
+			"itunesAuthor": "PODCAST AUTHOR",
+			"itunesSubtitle": "PODCAST SUBTITLE",
+			"itunesSummary": "PODCAST SUMMARY",
+			"itunesOwner":
+			{
+				"name": "PODCAST OWNER",
+				"email": "OWNER EMAIL"
+			},
+			"itunesExplicit": false,
+			"itunesCategory":
+			[
+				{
+					"text": "CATEGORY"
+				}
+			],
+			"itunesImage": "LOGO URL"
+		},
+		"item":
+		{
+			"categories": [ "CATEGORY" ],
+			"itunesAuthor": "PODCAST AUTHOR",
+			"itunesKeywords": [ "SOME", "KEYWORDS" ]
+		}
+	},
+	"youtube":
+	{
+		"channel": "YOUTUBE CHANNEL ID",
+		"count": 30,
+		"key": "YOUTUBE API KEY",
+		"includes": "SOME TEXT THAT SHOULD MATCH THE VIDEO TITLE",
+		"order": "date",
+		"download":
+		{
+			"options": ["--format=140"],
+			"execOptions": { "cwd": "/tmp" }
+		},
+		"minDuration": 7200
+	}
+}
