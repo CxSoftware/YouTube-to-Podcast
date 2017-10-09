@@ -49,7 +49,8 @@ export class YouTube
 			.map (item => ({
 				etag: item.etag,
 				title: item.snippet.title,
-				id: item.id.videoId
+				id: item.id.videoId,
+				description: item.snippet.description
 			}));
 
 		for (const item of items)
@@ -59,7 +60,7 @@ export class YouTube
 			const durationString = details.items [0].contentDetails.duration;
 			const duration = moment.duration (durationString);
 			item.duration = duration.as ('seconds');
-			winston.debug ('Duration', item.duration);
+			item.date = details.items [0].snippet.publishedAt;
 		}
 
 		return items.filter (x => x.duration > this.config.minDuration);
