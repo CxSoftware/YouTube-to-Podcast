@@ -20,3 +20,7 @@ You will need gulp to be installed (`sudo npm install -g gulp`)
 Copy the template file: `cp config.template.json config.json`
 
 Edit the config file config.json
+
+### Launch
+
+Run: `node dist/main`
