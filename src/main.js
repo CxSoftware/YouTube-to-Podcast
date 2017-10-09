@@ -6,6 +6,7 @@ require ('./util/log');
 const winston = require ('winston');
 
 // Local
+const config = require ('./util/config');
 import {Aws} from './util/aws';
 import {Podcast} from './util/podcast';
 import {YouTube} from './util/youtube';
@@ -19,7 +20,6 @@ import {YouTube} from './util/youtube';
 		const youtube = new YouTube ();
 		const podcast = new Podcast ();
 		const aws = new Aws ();
-		let uploaded = 0;
 
 		// Get data from YouTube
 		winston.info ('Getting data from channel');
@@ -39,7 +39,6 @@ import {YouTube} from './util/youtube';
 				const stream = await youtube.downloadVideo (item.id);
 				winston.info ('Uploading');
 				await aws.upload (stream, filename);
-				uploaded++;
 			}
 
 			// Get info
@@ -57,19 +56,13 @@ import {YouTube} from './util/youtube';
 				length);
 		}
 
-		// Generate?
-		if (!uploaded)
-		{
-			winston.info ('No files uploaded. Not updating feed.');
-			// return;
-		}
-
 		// Upload
 		winston.info ('Uploading feed');
-		aws.upload (podcast.generate (), 'feed.xml');
+		const xml = podcast.generate ();
+		await aws.upload (xml, config.podcast.xml);
 	}
 	catch (e)
 	{
-		winston.log ('error', e);
+		winston.error (e.message, e.stack);
 	}
 })();

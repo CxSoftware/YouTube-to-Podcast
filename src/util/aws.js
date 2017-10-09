@@ -8,13 +8,12 @@ const mime = require ('mime-types');
 // Local
 const config = require ('./config');
 
-
 export class Aws
 {
 	constructor ()
 	{
 		this.config = config.aws;
-		this.s3 = new AWS.S3();
+		this.s3 = new AWS.S3 (this.config.s3);
 	}
 
 	async fileExists (filename)

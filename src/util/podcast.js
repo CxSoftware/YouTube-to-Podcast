@@ -1,4 +1,5 @@
 // Dependencies
+const _ = require ('lodash');
 const mime = require ('mime-types');
 const PodcastModule = require ('podcast');
 
@@ -16,19 +17,23 @@ export class Podcast
 
 	addItem (title, description, url, date, duration, filename, size)
 	{
-		this.feed.item ({
-			title: title,
-			description: description,
-			url: url,
-			date: date,
-			itunesSummary: description,
-			itunesDuration: duration,
-			enclosure: {
+		const item = _.extend (
+			this.config.item,
+			{
+				title: title,
+				description: description,
 				url: url,
-				size: size,
-				mime: mime.lookup (filename)
-			}
-		});
+				date: date,
+				itunesSummary: description,
+				itunesDuration: duration,
+				itunesSubtitle: title,
+				enclosure: {
+					url: url,
+					size: size,
+					mime: mime.lookup (filename)
+				}
+			});
+		this.feed.item (item);
 	}
 
 	generate ()
