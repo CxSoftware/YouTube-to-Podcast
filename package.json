@@ -8,6 +8,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.131.0",
     "babel-eslint": "^7.1.1",
     "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "^6.18.0",
@@ -24,9 +25,7 @@
     "mime-types": "^2.1.16",
     "moment": "^2.18.1",
     "podcast": "^0.2.2",
-    "promise.pipe": "^3.0.0",
     "promisepipe": "^2.0.0",
-    "tmp-promise": "^1.0.3",
     "winston": "^2.3.0",
     "winston-cloudwatch": "^1.11.3",
     "youtube-dl": "^1.11.1",
