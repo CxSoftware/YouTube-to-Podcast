@@ -16,6 +16,20 @@ export class Aws
 		this.s3 = new AWS.S3 (this.config.s3);
 	}
 
+	async deleteFiles (files)
+	{
+		const params = {
+			Bucket: this.config.bucket,
+			Delete: {
+				Objects: files.map (f => ({ Key: f })),
+				Quiet: true
+			}
+		};
+		await this.s3
+			.deleteObjects (params)
+			.promise ();
+	}
+
 	async fileExists (filename)
 	{
 		const params = {
@@ -53,6 +67,15 @@ export class Aws
 	getUrl (filename)
 	{
 		return this.config.baseUrl + filename;
+	}
+
+	async list ()
+	{
+		const result = await this.s3
+			.listObjects ({ Bucket: this.config.bucket })
+			.promise ();
+
+		return result.Contents.map (x => x.Key);
 	}
 
 	async upload (body, filename)
