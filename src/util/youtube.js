@@ -61,6 +61,7 @@ export class YouTube
 			const duration = moment.duration (durationString);
 			item.duration = duration.as ('seconds');
 			item.date = details.items [0].snippet.publishedAt;
+			item.filename = `${item.id}.aac`;
 		}
 
 		return items.filter (x => x.duration > this.config.minDuration);
