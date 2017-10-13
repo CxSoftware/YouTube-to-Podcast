@@ -1,14 +1,13 @@
 // Dependencies
 const bluebird = require ('bluebird');
-const fs = require ('fs-promise');
 const moment = require ('moment');
-const pipe = require ('promisepipe');
 const winston = require ('winston');
 const youtubedl = require ('youtube-dl');
 const YouTubeNode = require ('youtube-node');
 
 // Local
 const config = require ('./config');
+const sleep = require ('./sleep');
 
 export class YouTube
 {
@@ -21,17 +20,17 @@ export class YouTube
 
 	async downloadVideo (id)
 	{
-		const filePath = `/tmp/${id}.m4a`;
-		const video = youtubedl (id,
+		const stream = youtubedl (id,
 			this.config.download.options,
 			this.config.download.execOptions);
-		winston.debug ('Waiting for download');
-		await pipe (
-			video,
-			await fs.createWriteStream (filePath));
-		winston.debug ('Downloaded');
-		const stream = await fs.createReadStream (filePath);
-		return stream;
+		let size = null;
+		stream.on ('info', info => { size = info.size; });
+		winston.debug ('Waiting for download to start...');
+		while (size === null)
+			await sleep (100);
+
+		// Done
+		return { stream, size };
 	}
 
 	async getVideoList ()
@@ -53,17 +52,23 @@ export class YouTube
 				description: item.snippet.description
 			}));
 
-		for (const item of items)
+		const items2 = await Promise.all (items.map (async (item) =>
 		{
 			winston.debug ('Getting details for', item.id);
 			const details = await this.youTube.getByIdAsync (item.id);
 			const durationString = details.items [0].contentDetails.duration;
-			const duration = moment.duration (durationString);
-			item.duration = duration.as ('seconds');
+			const duration = moment
+				.duration (durationString)
+				.as ('seconds');
+			if (duration < this.config.minDuration)
+				return null;
+
+			item.duration = duration;
 			item.date = details.items [0].snippet.publishedAt;
 			item.filename = `${item.id}.aac`;
-		}
+			return item;
+		}));
 
-		return items.filter (x => x.duration > this.config.minDuration);
+		return items2.filter (x => x);
 	}
 }

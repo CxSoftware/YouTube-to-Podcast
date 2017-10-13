@@ -25,19 +25,23 @@ import {YouTube} from './util/youtube';
 		winston.info ('Getting data from channel');
 		const items = await youtube.getVideoList ();
 
+		// List files in bucket
+		const bucketFiles = await aws.list ();
+
+		// Upload new files
+		const itemsToUpload = items.filter (x => !bucketFiles.includes (x.filename));
+		for (const item of itemsToUpload)
+		{
+			winston.info ('Downloading', item.title, item.filename);
+			const video = await youtube.downloadVideo (item.id);
+			winston.info ('Uploading');
+			await aws.upload (video.stream, item.filename, video.size);
+		}
+
 		// Add items
 		winston.info ('Adding items');
-		for (const item of items)
+		await Promise.all (items.map (async (item) =>
 		{
-			// Upload if it doesn't exists in S3
-			if (!(await aws.fileExists (item.filename)))
-			{
-				winston.info ('Downloading', item.title, item.filename);
-				const stream = await youtube.downloadVideo (item.id);
-				winston.info ('Uploading');
-				await aws.upload (stream, item.filename);
-			}
-
 			// Get info
 			const length = await aws.getLength (item.filename);
 
@@ -51,7 +55,7 @@ import {YouTube} from './util/youtube';
 				item.duration,
 				item.filename,
 				length);
-		}
+		}));
 
 		// Upload
 		winston.info ('Uploading feed');
@@ -60,7 +64,6 @@ import {YouTube} from './util/youtube';
 
 		// Cleanup
 		const uploadedFiles = items.map (x => x.filename);
-		const bucketFiles = await aws.list ();
 		const filesToDelete = bucketFiles
 			.filter (x => x.endsWith ('.aac'))
 			.filter (x => !uploadedFiles.includes (x));
@@ -69,8 +72,6 @@ import {YouTube} from './util/youtube';
 			winston.info ('Deleting files', filesToDelete);
 			await aws.deleteFiles (filesToDelete);
 		}
-		else
-			winston.info ('No files to delete');
 	}
 	catch (e)
 	{

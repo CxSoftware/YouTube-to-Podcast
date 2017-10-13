@@ -30,28 +30,6 @@ export class Aws
 			.promise ();
 	}
 
-	async fileExists (filename)
-	{
-		const params = {
-			Bucket: this.config.bucket,
-			Key: filename
-		};
-		try
-		{
-			await this.s3
-				.headObject (params)
-				.promise ();
-			return true;
-		}
-		catch (e)
-		{
-			if (e.code === 'NotFound')
-				return false;
-
-			throw e;
-		}
-	}
-
 	async getLength (filename)
 	{
 		const params = {
@@ -78,13 +56,14 @@ export class Aws
 		return result.Contents.map (x => x.Key);
 	}
 
-	async upload (body, filename)
+	async upload (body, filename, size = null)
 	{
 		const params = {
 			ACL: 'public-read',
 			Body: body,
 			Bucket: this.config.bucket,
 			Key: filename,
+			ContentLength: size,
 			ContentType: mime.lookup (filename)
 		};
 		await this.s3
