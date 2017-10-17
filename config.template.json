@@ -82,6 +82,7 @@
 			"options": ["--format=140"],
 			"execOptions": { "cwd": "/tmp" }
 		},
-		"minDuration": 7200
+		"minDuration": 7200,
+		"limit": 3
 	}
 }
