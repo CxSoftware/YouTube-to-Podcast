@@ -41,10 +41,15 @@ export class YouTube
 				channelId: this.config.channel,
 				order: this.config.order
 			});
+
+		const regex = this.config.regex ?
+			new RegExp (this.config.regex) :
+			null;
+
 		const items = result
 			.items
 			.filter (item => item.id.kind == 'youtube#video')
-			.filter (item => item.snippet.title.includes (this.config.includes))
+			.filter (item => regex == null || regex.test (item.snippet.title))
 			.map (item => ({
 				etag: item.etag,
 				title: item.snippet.title,

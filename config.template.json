@@ -75,7 +75,7 @@
 		"channel": "YOUTUBE CHANNEL ID",
 		"count": 30,
 		"key": "YOUTUBE API KEY",
-		"includes": "SOME TEXT THAT SHOULD MATCH THE VIDEO TITLE",
+		"regex": "SOME TEXT THAT SHOULD MATCH THE VIDEO TITLE",
 		"order": "date",
 		"download":
 		{
