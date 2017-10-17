@@ -24,6 +24,7 @@
     "mime-types": "^2.1.17",
     "moment": "^2.19.1",
     "podcast": "^0.2.2",
+    "promise-limit": "^2.5.0",
     "winston": "^2.4.0",
     "winston-cloudwatch": "^1.12.0",
     "youtube-dl": "^1.12.2",
