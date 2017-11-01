@@ -4,7 +4,7 @@ const winston = require ('winston');
 const winstoncw = require ('winston-cloudwatch');
 
 // Local
-const config = require ('./config');
+import config from './config';
 
 // Path
 config.log.local.filename = path.join (__dirname, '..', '..', config.log.local.filename);

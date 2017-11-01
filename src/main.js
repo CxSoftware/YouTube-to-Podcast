@@ -6,10 +6,10 @@ require ('./util/log');
 const winston = require ('winston');
 
 // Local
-const config = require ('./util/config');
-import {Aws} from './util/aws';
-import {Podcast} from './util/podcast';
-import {YouTube} from './util/youtube';
+import config from './util/config';
+import Aws from './util/aws';
+import Podcast from './util/podcast';
+import YouTube from './util/youtube';
 
 (async () =>
 {

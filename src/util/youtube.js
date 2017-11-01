@@ -7,10 +7,10 @@ const youtubedl = require ('youtube-dl');
 const YouTubeNode = require ('youtube-node');
 
 // Local
-const config = require ('./config');
-const sleep = require ('./sleep');
+import config from './config';
+import sleep from './sleep';
 
-export class YouTube
+export default class YouTube
 {
 	constructor ()
 	{

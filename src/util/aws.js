@@ -6,9 +6,9 @@ const AWS = require ('aws-sdk');
 const mime = require ('mime-types');
 
 // Local
-const config = require ('./config');
+import config from './config';
 
-export class Aws
+export default class Aws
 {
 	constructor ()
 	{

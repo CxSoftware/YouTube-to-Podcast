@@ -4,9 +4,9 @@ const mime = require ('mime-types');
 const PodcastModule = require ('podcast');
 
 // Local
-const config = require ('./config');
+import config from './config';
 
-export class Podcast
+export default class Podcast
 {
 	constructor ()
 	{

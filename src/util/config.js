@@ -6,4 +6,4 @@ const path = require ('path');
 const CONFIG_PATH = path.join (__dirname, '..', '..', 'config.json');
 
 // Module
-module.exports = jsonfile.readFileSync (CONFIG_PATH);
+export default jsonfile.readFileSync (CONFIG_PATH);
