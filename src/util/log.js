@@ -1,7 +1,7 @@
 // Dependencies
-const path = require ('path');
-const winston = require ('winston');
-const winstoncw = require ('winston-cloudwatch');
+import path from 'path';
+import winston from 'winston';
+import winstoncw from 'winston-cloudwatch';
 
 // Local
 import config from './config';

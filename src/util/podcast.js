@@ -1,7 +1,7 @@
 // Dependencies
-const _ = require ('lodash');
-const mime = require ('mime-types');
-const PodcastModule = require ('podcast');
+import _ from 'lodash';
+import mime from 'mime-types';
+import PodcastModule from 'podcast';
 
 // Local
 import config from './config';

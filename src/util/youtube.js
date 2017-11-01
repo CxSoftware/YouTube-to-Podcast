@@ -1,10 +1,10 @@
 // Dependencies
-const bluebird = require ('bluebird');
-const moment = require ('moment');
-const promiseLimit = require ('promise-limit');
-const winston = require ('winston');
-const youtubedl = require ('youtube-dl');
-const YouTubeNode = require ('youtube-node');
+import bluebird from 'bluebird';
+import moment from 'moment';
+import promiseLimit from 'promise-limit';
+import winston from 'winston';
+import youtubedl from 'youtube-dl';
+import YouTubeNode from 'youtube-node';
 
 // Local
 import config from './config';

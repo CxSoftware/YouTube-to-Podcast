@@ -1,6 +1,6 @@
 // Dependencies
-const jsonfile = require ('jsonfile');
-const path = require ('path');
+import jsonfile from 'jsonfile';
+import path from 'path';
 
 // Constants
 const CONFIG_PATH = path.join (__dirname, '..', '..', 'config.json');

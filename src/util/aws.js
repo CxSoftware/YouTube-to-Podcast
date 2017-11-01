@@ -1,9 +1,9 @@
 // Runtime
-require ('babel-polyfill');
+import 'babel-polyfill';
 
 // Dependencies
-const AWS = require ('aws-sdk');
-const mime = require ('mime-types');
+import AWS from 'aws-sdk';
+import mime from 'mime-types';
 
 // Local
 import config from './config';

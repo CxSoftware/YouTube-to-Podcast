@@ -1,9 +1,9 @@
 // Runtime
-require ('babel-polyfill');
-require ('./util/log');
+import 'babel-polyfill';
+import './util/log';
 
 // Dependencies
-const winston = require ('winston');
+import winston from 'winston';
 
 // Local
 import config from './util/config';
