@@ -26,10 +26,12 @@ import YouTube from './util/youtube';
 		const items = await youtube.getVideoList ();
 
 		// List files in bucket
+		winston.info ('Listing files in bucket');
 		const bucketFiles = await aws.list ();
 
 		// Upload new files
 		const itemsToUpload = items.filter (x => !bucketFiles.includes (x.filename));
+		winston.info (`Found ${itemsToUpload.length} items to upload`);
 		for (const item of itemsToUpload)
 		{
 			winston.info ('Downloading', item.title, item.filename);
