@@ -83,6 +83,7 @@
 			"execOptions": { "cwd": "/tmp" }
 		},
 		"minDuration": 7200,
-		"limit": 3
+		"limit": 3,
+		"preBuffer": true
 	}
 }

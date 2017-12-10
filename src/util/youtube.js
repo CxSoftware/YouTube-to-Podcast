@@ -1,6 +1,8 @@
 // Dependencies
 import bluebird from 'bluebird';
+import fs from 'fs-promise';
 import moment from 'moment';
+import pipe from 'promisepipe';
 import promiseLimit from 'promise-limit';
 import winston from 'winston';
 import youtubedl from 'youtube-dl';
@@ -25,14 +27,24 @@ export default class YouTube
 		const stream = youtubedl (id,
 			this.config.download.options,
 			this.config.download.execOptions);
+
 		let size = null;
 		stream.on ('info', info => { size = info.size; });
 		winston.debug ('Waiting for download to start...');
 		while (size === null)
 			await sleep (100);
 
-		// Done
-		return { stream, size };
+		if (!this.config.preBuffer)
+			return { stream, size };
+
+		const filePath = `/tmp/${id}.m4a`;
+		winston.debug ('Waiting for download to end...');
+		await pipe (
+			stream,
+			await fs.createWriteStream (filePath));
+		winston.debug ('Downloaded');
+		const stream2 = await fs.createReadStream (filePath);
+		return { stream: stream2, size: size };
 	}
 
 	async getVideoList ()
