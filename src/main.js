@@ -30,14 +30,35 @@ import YouTube from './util/youtube';
 		const bucketFiles = await aws.list ();
 
 		// Upload new files
+		const notDownloaded = [];
 		const itemsToUpload = items.filter (x => !bucketFiles.includes (x.filename));
 		winston.info (`Found ${itemsToUpload.length} items to upload`);
 		for (const item of itemsToUpload)
 		{
-			winston.info ('Downloading', item.title, item.filename);
-			const video = await youtube.downloadVideo (item.id);
-			winston.info ('Uploading');
-			await aws.upload (video.stream, item.filename, video.size);
+			try
+			{
+				winston.info ('Downloading', item.title, item.filename);
+				const video = await youtube.downloadVideo (item.id);
+				winston.info ('Uploading');
+				await aws.upload (video.stream, item.filename, video.size);
+			}
+			catch (e2)
+			{
+				winston.info ('Skipping', item.title);
+				winston.error (e2);
+				notDownloaded.push (item);
+			}
+		}
+
+		// Remove items
+		if (notDownloaded.length)
+		{
+			winston.info ('Removing items that were not downloaded');
+			for (const item of notDownloaded)
+			{
+				winston.info ('Removing', item.title);
+				items.splice (items.indexOf (item), 1);
+			}
 		}
 
 		// Add items
