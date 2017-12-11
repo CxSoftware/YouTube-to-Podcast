@@ -80,7 +80,7 @@
 		"download":
 		{
 			"options": ["--format=140"],
-			"execOptions": { "cwd": "/tmp" }
+			"execOptions": { "cwd": "/tmp", "maxBuffer": 512000 }
 		},
 		"minDuration": 7200,
 		"limit": 3,
