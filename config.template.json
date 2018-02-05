@@ -3,6 +3,7 @@
 	{
 		"baseUrl": "https://YOUR_PUBLIC_BUCKET_URL/",
 		"bucket": "BUCKET_NAME",
+		"deleteOld": true,
 		"s3":
 		{
 			"endpoint": "AWS_OR_DIGITAL_OCEAN_ENDPOINT",

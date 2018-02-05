@@ -86,14 +86,17 @@ import YouTube from './util/youtube';
 		await aws.upload (xml, config.podcast.xml);
 
 		// Cleanup
-		const uploadedFiles = items.map (x => x.filename);
-		const filesToDelete = bucketFiles
-			.filter (x => x.endsWith ('.aac'))
-			.filter (x => !uploadedFiles.includes (x));
-		if (filesToDelete.length)
+		if (config.aws.deleteOld)
 		{
-			winston.info ('Deleting files', filesToDelete);
-			await aws.deleteFiles (filesToDelete);
+			const uploadedFiles = items.map (x => x.filename);
+			const filesToDelete = bucketFiles
+				.filter (x => x.endsWith ('.aac'))
+				.filter (x => !uploadedFiles.includes (x));
+			if (filesToDelete.length)
+			{
+				winston.info ('Deleting files', filesToDelete);
+				await aws.deleteFiles (filesToDelete);
+			}
 		}
 	}
 	catch (e)
