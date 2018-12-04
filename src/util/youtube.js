@@ -29,10 +29,14 @@ export default class YouTube
 			this.config.download.execOptions);
 
 		let size = null;
+		let error = null;
 		stream.on ('info', info => { size = info.size; });
+		stream.on ('error', err => error = err);
 		winston.debug ('Waiting for download to start...');
-		while (size === null)
+		while (size === null && error === null)
 			await sleep (100);
+		if (error)
+			throw error;
 
 		if (!this.config.preBuffer)
 			return { stream, size };
