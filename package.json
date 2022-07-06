@@ -23,7 +23,7 @@
     "jsonfile": "^2.4.0",
     "lodash": "^4.17.11",
     "mime-types": "^2.1.21",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "podcast": "^0.2.2",
     "promise-limit": "^2.7.0",
     "promisepipe": "^2.1.3",
