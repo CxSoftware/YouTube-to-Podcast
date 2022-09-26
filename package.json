@@ -28,7 +28,7 @@
     "promise-limit": "^2.7.0",
     "promisepipe": "^2.1.3",
     "winston": "^2.4.4",
-    "winston-cloudwatch": "^1.13.1",
+    "winston-cloudwatch": "^6.1.1",
     "youtube-dl": "^1.12.2",
     "youtube-node": "^1.3.2"
   },
